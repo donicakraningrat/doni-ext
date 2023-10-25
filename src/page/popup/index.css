@@ -1,0 +1,38 @@
+/* * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+} */
+nav{
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2c8eec;
+    padding: 1px;
+    margin: 0px;
+
+}
+nav a{
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #ffffff;
+    padding: 0.5em;
+}
+nav ul{
+    list-style: none;
+    display: flex;
+    gap: 1em;
+}
+nav ul a:hover{
+    background-color: #333333;
+    border-radius: 0.5em;
+}
+.active {
+    border-bottom: 2px solid #ffffff;
+    border-radius: 0.5em;
+}
+body{
+    height: 400px;
+    width: 400px;
+}

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "name": "Chrome Ext",
+  "description": "Template Chrome Ext",
+  "icons": {
+    "16": "tools.png",
+    "48": "tools.png",
+    "128": "tools.png"
+  },
+  "action": {
+    "default_title": "Chrome ext",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "run_at": "document_idle",
+      "matches": ["https://dashboard.prakerja.go.id/*"],
+      "js": ["cs.js"]
+    }
+  ],
+  "options_page": "popup.html"
+}

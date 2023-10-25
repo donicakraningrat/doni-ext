@@ -1,0 +1,17 @@
+#groupEncode{
+    height: 100%;
+}
+#groupDecode{
+    height: 100%;
+}
+
+textarea{
+    width: 100%;
+    resize: vertical;
+}
+#txtPayload{
+    height: 200px;
+}
+#txtToken{
+    height: 100px;
+}

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "module": "CommonJS",
+        "target": "es6",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "strict": true,
+        "sourceMap": false,
+        "rootDir": "src",
+        "noImplicitAny": true,
+        "noEmitOnError": false,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": ["src/**/*.ts","src/**/*.tsx"],
+    "exclude": ["node_modules"]
+}
