@@ -1,0 +1,15 @@
+.tblDbConfig,
+.tblDbConfig th,
+.tblDbConfig td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.tblDbConfig th,
+.tblDbConfig td {
+  max-width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* word-break: break-word; */
+  background-color: #96b9d4;
+}

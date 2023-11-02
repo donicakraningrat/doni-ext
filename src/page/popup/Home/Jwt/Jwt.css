@@ -10,7 +10,7 @@ textarea{
     resize: vertical;
 }
 #txtPayload{
-    height: 200px;
+    height: 50px;
 }
 #txtToken{
     height: 100px;

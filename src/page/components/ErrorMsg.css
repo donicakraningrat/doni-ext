@@ -1,0 +1,4 @@
+
+.errorMsg::backdrop {
+    background-color: hsl(250, 100%, 50%, 0.25);
+  }
