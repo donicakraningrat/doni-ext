@@ -1,18 +1,34 @@
 export type TDbConfig = {
-    name: string;
     host?: string;
     user?: string;
     password?: string;
     port?: number;
     connectTimeout?: number;
 };
+export type TJwtConfig = {
 
-export const initDbConfig: TDbConfig =
+    secretKey?: string;
+    algorithm?: string;
+    expiredDate?: string;
+};
+export const initConfig: TConfig =
 {
     name: "",
-    host: "",
-    user: "",
-    password: "",
-    port: 3306,
-    connectTimeout: 30000,
+    dbConfig: {
+        host: "",
+        user: "",
+        password: "",
+        port: 3306,
+        connectTimeout: 30000,
+    },
+    jwtConfig: {
+        secretKey: "",
+        algorithm: "",
+        expiredDate: ""
+    }
+}
+export type TConfig = {
+    name: string;
+    dbConfig: TDbConfig;
+    jwtConfig: TJwtConfig;
 }

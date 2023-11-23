@@ -2,8 +2,8 @@ import useLocalStorage from "../../../hooks/useLocalStorage";
 
 export default function Epoch() {
 
-    const [epoch, setEpoch] = useLocalStorage("epoch", 0);
-    const [date, setDate] = useLocalStorage("date", "");
+    const [epoch, setEpoch] = useLocalStorage<number>("epoch", 0);
+    const [date, setDate] = useLocalStorage<string>("date", "");
     function h_dateTxt_click() {
         setEpoch(new Date(date).getTime() / 1000);
     }

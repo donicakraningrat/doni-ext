@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Jwt.css"
 import axios from "axios";
 import useLocalStorage from "../../../hooks/useLocalStorage";
-import { TDbConfig } from "../../../const/db";
+import { TConfig, TDbConfig } from "../../../const/db";
 import TextBox from "../../../components/TextBox";
 const jwtAlgor = [ "HS256","HS384","HS512","RS256","RS384","RS512","PS256","PS384","PS512","ES256","ES384","ES512"]
 //     { code: "HS256", label: "HMAC using SHA-256 hash algorithm" },
@@ -18,13 +18,16 @@ const jwtAlgor = [ "HS256","HS384","HS512","RS256","RS384","RS512","PS256","PS38
 //     { code: "ES384", label: "ECDSA using P-384 curve and SHA-384 hash algorithm" },
 //     { code: "ES512", label: "ECDSA using P-521 curve and SHA-512 hash algorithm" },
 // ]
-export default function Jwt({apiEndpoint,sqlConn}:{apiEndpoint:string,sqlConn:TDbConfig}) {
-    const [jwtFormData, setJwtFormData] = useLocalStorage("jwt_FormData", {});
-    const [secretList, setSecretList] = useLocalStorage("jwt_secretList", []);
-    const [emailList, setEmailList] = useLocalStorage("jwt_emailList", []);
+export default function Jwt({apiEndpoint,config}:{apiEndpoint:string,config:TConfig}) {
+    const [jwtFormData, setJwtFormData] = useLocalStorage<tJWT>("jwt_FormData", {});
+    const [secretList, setSecretList] = useLocalStorage<string[]>("jwt_secretList", []);
+    const [emailList, setEmailList] = useLocalStorage<string[]>("jwt_emailList", []);
     
     const [errorMsg, setErrorMsg] = useState("");
-    
+    useEffect(() => {
+        setJwtFormData({...jwtFormData,...config.jwtConfig});
+      },[config]);
+
     function ShowErrorMsg(msg:string){
         setErrorMsg(msg);
         const _errorDialog = document.getElementById("errorMsg") as HTMLDialogElement;
@@ -32,26 +35,30 @@ export default function Jwt({apiEndpoint,sqlConn}:{apiEndpoint:string,sqlConn:TD
     }
 
     function h_btnEmail(e: React.FormEvent<HTMLButtonElement>) {
-        if(!sqlConn || !sqlConn.host || !sqlConn.user || !sqlConn.password) {
+        if(!config || !config.dbConfig.host || !config.dbConfig.user || !config.dbConfig.password) {
             alert(`Koneksi SQl tidak benar
-            ${JSON.stringify(sqlConn,null,4)}`)
+            ${JSON.stringify(config,null,4)}`)
             return;}
         const _ddEmail = document.getElementById('Email_Txt') as HTMLInputElement;
         const SecretKey_Txt = document.getElementById('SecretKey_Txt') as HTMLInputElement;
         const apiUrl = `${apiEndpoint}/mysql/query`; // Replace with your API URL
             axios.post(apiUrl, {
                 dbConfig: {
-                    host: sqlConn.host,
-                    user: sqlConn.user,
-                    password: sqlConn.password,
-                    port: sqlConn.port,
-                    connectTimeout: sqlConn.connectTimeout,
+                    host: config.dbConfig.host,
+                    user: config.dbConfig.user,
+                    password: config.dbConfig.password,
+                    port: config.dbConfig.port,
+                    connectTimeout: config.dbConfig.connectTimeout,
                 },
                 type: "q",
                 query: "select * from users.users where email = ? ",
                 params: _ddEmail.value
             })
             .then(function (response) {
+                if(response.data.length === 0) {
+                    ShowErrorMsg(`${_ddEmail.value} tidak di temukan`);
+                    return;
+                }
                 let _uid = response.data[0].id
                 let _jwtFormData = { ...jwtFormData }
                 if (!_jwtFormData.payload) _jwtFormData.payload = { r: "user" };
@@ -170,4 +177,19 @@ export default function Jwt({apiEndpoint,sqlConn}:{apiEndpoint:string,sqlConn:TD
             </fieldset>
         </>
     );
+}
+
+type tJWT =
+{
+    secretKey: string;
+    algorithm: string;
+    expiredDate?: string;
+    payload?: tJwtPayload;
+    token?: string;
+}
+type tJwtPayload ={
+    em?: string;
+    exp?: number;
+    r?: string;
+    uid?: number;
 }

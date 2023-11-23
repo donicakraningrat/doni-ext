@@ -2,12 +2,12 @@ import { useState } from "react";
 import TextBox from "../../../components/TextBox";
 import axios from "axios";
 import useLocalStorage from "../../../hooks/useLocalStorage";
-import { TDbConfig } from "../../../const/db";
+import { TConfig, TDbConfig } from "../../../const/db";
 
-export default function Redis({apiEndpoint,sqlConn}:{apiEndpoint:string,sqlConn:TDbConfig}) {
+export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TConfig}) {
     const [redisFormData, setRedisFormData] = useState({ email: "", host: "", port: 6379, key: "otp:login_otp:code:" });
-    const [emailHist, setEmailHist] = useLocalStorage("redis_email",[]);
-    const [hostHist, setHostHist] = useLocalStorage("redis_host",[]);
+    const [emailHist, setEmailHist] = useLocalStorage<string[]>("redis_email",[]);
+    const [hostHist, setHostHist] = useLocalStorage<string[]>("redis_host",[]);
 
     const [errorMsg, setErrorMsg] = useState("");
     function ShowErrorMsg(msg: string) {
@@ -20,11 +20,11 @@ export default function Redis({apiEndpoint,sqlConn}:{apiEndpoint:string,sqlConn:
         const apiUrl = `${apiEndpoint}/mysql/query`; // Replace with your API URL
         axios.post(apiUrl, {
             dbConfig: {
-                host: sqlConn.host,
-                user: sqlConn.user,
-                password: sqlConn.password,
-                port: sqlConn.port,
-                connectTimeout: sqlConn.connectTimeout,
+                host: config.dbConfig.host,
+                user: config.dbConfig.user,
+                password: config.dbConfig.password,
+                port: config.dbConfig.port,
+                connectTimeout: config.dbConfig.connectTimeout,
             },
             type: "q",
             query: "select * from users.users where email = ? ",

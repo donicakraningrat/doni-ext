@@ -1,0 +1,14 @@
+.ul-json {
+    display: block;
+    list-style-type: none;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+    border-left: 1px solid black;
+  }
+
+  .p-json {
+    margin: 0px;
+  }

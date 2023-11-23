@@ -1,14 +1,14 @@
-import { TDbConfig } from "../../const/db";
+import { TConfig, TDbConfig } from "../../const/db";
 import Epoch from "./Epoch/Epoch";
 import Jwt from "./Jwt/Jwt";
 import Redis from "./Redis/Redis";
 
-export default function Home({apiEndpoint,sqlConn}:{apiEndpoint:string,sqlConn:TDbConfig}) {
+export default function Home({apiEndpoint,config}:{apiEndpoint:string,config:TConfig}) {
     return (
         <div>
             <Epoch/>
-            <Jwt apiEndpoint={apiEndpoint} sqlConn={sqlConn}/>
-            <Redis apiEndpoint={apiEndpoint} sqlConn={sqlConn}/>
+            <Jwt apiEndpoint={apiEndpoint} config={config}/>
+            <Redis apiEndpoint={apiEndpoint} config={config}/>
         </div>
     );
 }
