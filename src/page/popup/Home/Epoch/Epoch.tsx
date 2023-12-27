@@ -2,8 +2,8 @@ import useLocalStorage from "../../../hooks/useLocalStorage";
 
 export default function Epoch() {
 
-    const [epoch, setEpoch] = useLocalStorage<number>("epoch", 0);
-    const [date, setDate] = useLocalStorage<string>("date", "");
+    const [epoch, setEpoch] = useLocalStorage<number>("Epoch", 0);
+    const [date, setDate] = useLocalStorage<string>("Epoch_Date", "");
     function h_dateTxt_click() {
         setEpoch(new Date(date).getTime() / 1000);
     }
@@ -11,7 +11,7 @@ export default function Epoch() {
         const _date = new Date(epoch * 1000);
         const sDatetime: string = _date.toLocaleString("id-ID").replace(", ", "/").replace(/\./g, "/");
         const arDatetime = sDatetime.split("/");
-        const formattedDatetime = `${arDatetime[2]}-${arDatetime[1]}-${arDatetime[0]}T${arDatetime[3]}:${arDatetime[4]}`
+        const formattedDatetime = `${arDatetime[2]}-${arDatetime[1].padStart(2,"0")}-${arDatetime[0].padStart(2,"0")}T${arDatetime[3]}:${arDatetime[4]}`
         setDate(formattedDatetime);
     }
     return (

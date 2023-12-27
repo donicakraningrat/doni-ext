@@ -52,7 +52,7 @@ export default function App() {
                 <Route path="/" element={<Home apiEndpoint={apiEndpoint} config={curConfig} />} />
                 <Route path="/jwt" element={<Jwt apiEndpoint={apiEndpoint} config={curConfig} />} />
                 <Route path="/json" element={<Json />} />
-                <Route path="/query" element={<Query />} />
+                <Route path="/query" element={<Query apiEndpoint={apiEndpoint} config={curConfig} />} />
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </>
