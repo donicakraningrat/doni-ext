@@ -6,7 +6,7 @@ import redisCtrl from './controllers/redisCtrl';
 require('dotenv').config();
 
 const app: Application = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3100;
 
 app.use(express.json());
 app.use(cors());

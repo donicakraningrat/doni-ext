@@ -5,15 +5,13 @@ const router: Router = express.Router();
 
 //get route
 router.post("/get", async (req: Request, res: Response) => {
-    if (!req.body.host) { res.json({ error: "No Host name" }); return; };
+    if (!req.body.config) { res.json({ error: "No config name" }); return; };
     if (!req.body.key) { res.json({ error: "No redis key" }); return; };
     const key = req.body.key;
-    const host = req.body.host;
-
-    const redis = new Redis({
-        host: host, //"r-d9j83yzngns5sh5gpf.redis.ap-southeast-5.rds.aliyuncs.com",
-        port: 6379, // Default Redis port
-    });
+    const config = req.body.config;
+    console.log("redis Config:",config);
+    
+    const redis = new Redis(config);
     redis.get(key)
         .then((value) => {
             if (value !== null) {

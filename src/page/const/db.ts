@@ -25,10 +25,21 @@ export const initConfig: TConfig =
         secretKey: "",
         algorithm: "",
         expiredDate: ""
+    },
+    redisConfig: {
+        host: "",
+        port: 0,
+        db: 0
     }
 }
+export type TRedisConfig = {
+    host: string;
+    port?: number;
+    db?: number;
+};
 export type TConfig = {
     name: string;
     dbConfig: TDbConfig;
     jwtConfig: TJwtConfig;
+    redisConfig:TRedisConfig;
 }
