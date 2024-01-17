@@ -42,7 +42,43 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
                 "key": key
             })
                 .then(function (response) {
-                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
+                    // (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
+                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
+                })
+                .catch(function (error) {
+                    if (error.code === "ERR_NETWORK")
+                        ShowErrorMsg(`Error: Kemungkinan API belum diaktifkan.`);
+                    else
+                        ShowErrorMsg(error.message);
+                });
+    }
+    
+    function h_deleteRedisBtn() {
+            const apiUrl = `${apiEndpoint}/redis/delete`;
+            axios.post(apiUrl, {
+                "config": {...config.redisConfig,db:dbIndex},
+                "key": key
+            })
+                .then(function (response) {
+                    // (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
+                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
+                })
+                .catch(function (error) {
+                    if (error.code === "ERR_NETWORK")
+                        ShowErrorMsg(`Error: Kemungkinan API belum diaktifkan.`);
+                    else
+                        ShowErrorMsg(error.message);
+                });
+    }
+    function h_getRedisKeyBtn() {
+            const apiUrl = `${apiEndpoint}/redis/keys`;
+            axios.post(apiUrl, {
+                "config": {...config.redisConfig,db:dbIndex},
+                "key": key
+            })
+                .then(function (response) {
+                    // (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
+                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
                 })
                 .catch(function (error) {
                     if (error.code === "ERR_NETWORK")
@@ -78,6 +114,8 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
                 <TextBox id="keyTxt" label="key:" value={key} onChange={(e) => setKey(e.target.value)} history={redisKeyList.map(k=>k.key)}/>
                 </div>
                 <button id="getReditBtn" onClick={h_getReditBtn}>Get Redis Data</button>
+                <button id="getKeysRedisBtn" onClick={h_getRedisKeyBtn}>Get Keys</button>
+                <button id="deleteKeysRedisBtn" onClick={h_deleteRedisBtn}>Delete</button>
                 <textarea id="redisValueTxt" readOnly={true} rows={5} style={{overflowY:"scroll"}}/>
                 <br/>
                 <button id="addRedisKey" onClick={h_saveRedistKey}>Save</button>

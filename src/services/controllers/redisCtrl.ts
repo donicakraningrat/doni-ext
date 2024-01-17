@@ -59,7 +59,7 @@ router.post("/keys", async (req: Request, res: Response) => {
             console.log("Close the Redis connection");
         });
 });
-router.delete("/delete", async (req: Request, res: Response) => {
+router.post("/delete", async (req: Request, res: Response) => {
     if (!req.body.config) { res.json({ error: "No config name" }); return; };
     if (!req.body.key) { res.json({ error: "No redis key" }); return; };
     const key = req.body.key;
