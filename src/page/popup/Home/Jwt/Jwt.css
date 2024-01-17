@@ -9,9 +9,3 @@ textarea{
     width: 100%;
     resize: vertical;
 }
-#txtPayload{
-    height: 50px;
-}
-#txtToken{
-    height: 100px;
-}

@@ -155,6 +155,7 @@ export default function Jwt({apiEndpoint,config}:{apiEndpoint:string,config:TCon
                 <legend>Encoder</legend>
                 <TextBox id="SecretKey_Txt" label="Secret Key :" value={jwtFormData.secretKey} history={secretList} onChange={(e) => setJwtFormData({ ...jwtFormData, ...{ secretKey: e.target.value } })} />
                 <TextBox id="Algoritma_Txt" label="Algoritma :" value={jwtFormData.algorithm} history={jwtAlgor} onChange={e => setJwtFormData({ ...jwtFormData, ...{ algorithm: e.target.value } })} style={{ width: "75px" }} />
+                <br />
                 <TextBox id="Email_Txt" label="Email :" history={emailList} />
                 <button id="btnEmail" onClick={e => h_btnEmail(e)}>Set Email</button>
                 <br />
@@ -173,7 +174,7 @@ export default function Jwt({apiEndpoint,config}:{apiEndpoint:string,config:TCon
                 <legend>Decoder</legend>
                 <label htmlFor="txtToken">Token : <button onClick={h_btnDecode_click}>Decode</button>
                 </label>
-                <textarea id="txtToken" value={jwtFormData.token} onChange={e => setJwtFormData({ ...jwtFormData, ...{ token: e.target.value } })} />
+                <textarea id="txtToken" rows={5} value={jwtFormData.token} onChange={e => setJwtFormData({ ...jwtFormData, ...{ token: e.target.value } })} />
             </fieldset>
         </>
     );

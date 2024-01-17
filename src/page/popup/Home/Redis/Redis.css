@@ -1,0 +1,10 @@
+#dbIndex{
+    width: 50px;
+}
+#divKeyTxt{
+    width: 100;
+    display: flex;
+}
+#keyTxt{
+    flex: 1;
+}

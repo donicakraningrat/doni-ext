@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextBox from "../../../components/TextBox";
 import axios from "axios";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { TConfig, TDbConfig } from "../../../const/db";
 import SpinEdit from "../../../components/SpinEdit";
+import "./Redis.css"
 
+type redistForm = {
+    name:string,
+    env:string,
+    key:string,
+    dbIndex:number,
+}
 export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TConfig}) {
     // const [redisFormData, setRedisFormData] = useState({ email: "", host: "", port: 6379, key: "otp:login_otp:code:" });
+    const [redisName, setRedisName] = useState("");
     const [key, setKey] = useState("");
     const [dbIndex, setDbIndex] = useState(0);
-    // const [emailHist, setEmailHist] = useLocalStorage<string[]>("redis_email",[]);
-    // const [hostHist, setHostHist] = useLocalStorage<string[]>("redis_host",[]);
+    const [redisKeyList, setRedisKeyList] = useLocalStorage<redistForm[]>("redis_keys",[]);
 
     const [errorMsg, setErrorMsg] = useState("");
     function ShowErrorMsg(msg: string) {
@@ -18,7 +25,16 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
         const _errorDialog = document.getElementById("errorMsg") as HTMLDialogElement;
         _errorDialog.showModal();
     }
-
+    useEffect(()=>{
+        let selectedKey = redisKeyList.find(kl=>kl.name === redisName);
+        if(selectedKey){
+        setKey(selectedKey.key);
+        setDbIndex(selectedKey.dbIndex);
+    }
+    },[redisName])
+    // function h_selectReditKey(e:React.ChangeEvent<HTMLInputElement>){
+    //     setRedisName(e.target.value);
+    // }
     function h_getReditBtn() {
             const apiUrl = `${apiEndpoint}/redis/get`;
             axios.post(apiUrl, {
@@ -35,6 +51,16 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
                         ShowErrorMsg(error.message);
                 });
     }
+    function h_saveRedistKey(){
+        //otp:login_otp:v2:code:
+        setRedisKeyList(prev=>{
+            if(prev.findIndex(v=>(v.env === config.name && v.key === key && v.dbIndex === dbIndex)) === -1){
+                
+                return [...prev,{env:config.name,key:key,dbIndex:dbIndex,name:redisName}];
+            }
+            return prev;
+        })
+    }
     return (
         <>
             <dialog id="errorMsg" className="errorMsg">
@@ -45,13 +71,16 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
             </dialog>
             <fieldset>
                 <legend>Redis OTP</legend>
-                <SpinEdit id="dbIndex" label="db Index:" value={dbIndex} onChange={e=>setDbIndex(parseInt(e.target.value))} />
-                {/* <TextBox id="hostTxt" label="Host:" value={redisFormData.host} history={hostHist} onChange={(e) => setRedisFormData({ ...redisFormData, ...{ host: e.target.value } })} /> */}
-                <TextBox id="keyTxt" label="key:" value={key} onChange={(e) => setKey(e.target.value)} />
-                {/* <TextBox id="portTxt" label="Port:" value={redisFormData.port} onChange={(e)=>setRedisFormData({...redisFormData,...{port:e.target.value}})}/> */}
-                {/* <TextBox id="keyTxt" label="key:" value={redisFormData.key} onChange={(e)=>setRedisFormData({...redisFormData,...{key:e.target.value}})}/> */}
+                <TextBox id="redisName" label="Pilih Redis Key:" value={redisName} onChange={(e) => setRedisName(e.target.value)} history={redisKeyList.map(k=>k.name)}/>
+                <SpinEdit id="dbIndex" label="db Index:" value={dbIndex} onChange={e=>setDbIndex(parseInt(e.target.value))}/>
+                <br />
+                <div id="divKeyTxt">
+                <TextBox id="keyTxt" label="key:" value={key} onChange={(e) => setKey(e.target.value)} history={redisKeyList.map(k=>k.key)}/>
+                </div>
                 <button id="getReditBtn" onClick={h_getReditBtn}>Get Redis Data</button>
-                <textarea id="redisValueTxt" readOnly={true} />
+                <textarea id="redisValueTxt" readOnly={true} rows={5} style={{overflowY:"scroll"}}/>
+                <br/>
+                <button id="addRedisKey" onClick={h_saveRedistKey}>Save</button>
             </fieldset>
         </>
     );

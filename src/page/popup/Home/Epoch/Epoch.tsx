@@ -19,10 +19,10 @@ export default function Epoch() {
             <legend>Epoch</legend>
             <label htmlFor="dateTxt"></label>
             <input id="dateTxt" value={date} onChange={e => setDate(e.target.value)} type="datetime-local" />
-            <button onClick={h_dateTxt_click}>Date to Epoch</button>
+            <button onClick={h_dateTxt_click}>to Epoch</button>
             <label htmlFor="epochTxt"></label>
-            <input id="epochTxt" value={epoch} onChange={e => setEpoch(parseInt(e.target.value))} type="number" />
-            <button onClick={h_epochTxt_click}>Epoch to Date</button>
+            <input id="epochTxt" value={epoch} onChange={e => setEpoch(parseInt(e.target.value))} type="number" style={{width:"80px"}}/>
+            <button onClick={h_epochTxt_click}>to Date</button>
         </fieldset>
     );
 }

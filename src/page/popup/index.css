@@ -1,8 +1,7 @@
-/* * {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-} */
+* {
+    font-size: 11px;
+}
+
 nav{
     font-family: sans-serif;
     display: flex;
@@ -34,4 +33,5 @@ nav ul a:hover{
 }
 body{
     width: 400px;
+    height: fit-content;
 }
