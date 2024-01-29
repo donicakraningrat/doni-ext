@@ -9,9 +9,12 @@ export default function TreeViewJson({ jsonKey, jsonData,path,onClick }: PropsTr
     return (
         <>
             {
+                (!jsonData) ? 
+                    <li onClick={e=>onClick(`${path}`)}>{(jsonKey)?`${jsonKey} : ${jsonData}`:`${jsonData}`}</li>
+                    :
                 (jsonData.constructor === Array) ?
                     <>
-                        <span className="p-json">{`${jsonKey}`}{`[`}</span>
+                        <span className="p-json" onClick={e=>onClick(`${path}`)}>{`${jsonKey}`}{`[`}</span>
                         <ul className="ul-json">
                             {jsonData.map((d,ix) => <TreeViewJson jsonData={d} path={`${path}[${ix}]`} onClick={onClick}/>)}
                         </ul>
@@ -19,7 +22,7 @@ export default function TreeViewJson({ jsonKey, jsonData,path,onClick }: PropsTr
                     </> :
                     (jsonData.constructor === Object) ?
                         <>
-                            <span className="p-json">{(jsonKey)?`${jsonKey} : {`:`{`}</span>
+                            <span className="p-json" onClick={e=>onClick(`${path}`)}>{(jsonKey)?`${jsonKey} : {`:`{`}</span>
                             <ul className="ul-json">
                                 {Object.keys(jsonData).map(k => <TreeViewJson jsonKey={k} jsonData={jsonData[k]} path={`${path}.${k}`} onClick={onClick}/>)}
                             </ul>
