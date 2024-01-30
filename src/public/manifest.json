@@ -19,7 +19,7 @@
   "content_scripts": [
     {
       "run_at": "document_idle",
-      "matches": ["https://dashboard.prakerja.go.id/*"],
+      "matches": ["https://dashboard.prakerja.go.id/*","https://*.prakerja.go.id/*"],
       "js": ["cs.js"]
     }
   ],
