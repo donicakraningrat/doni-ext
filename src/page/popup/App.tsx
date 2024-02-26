@@ -7,6 +7,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { TConfig, initConfig } from "../const/db";
 import Query from "./Query/Query";
 import Json from "./Json/Json";
+import QA from "./QA/QA";
 
 function NavItem({ href, id, label, activeNav, setActiveNav }: { href: string, id: string, label: string, activeNav: string, setActiveNav: (navId: string) => void }) {
     return (
@@ -24,6 +25,7 @@ export default function App() {
             <nav>
                 <ul className='nav'>
                     <NavItem href="#/" id="home_nav" label="Home" activeNav={activeNav} setActiveNav={setActiveNav} />
+                    <NavItem href="#/testcase" id="testcase_nav" label="Testcase" activeNav={activeNav} setActiveNav={setActiveNav} />
                     <NavItem href="#/jwt" id="jwt_nav" label="JWT" activeNav={activeNav} setActiveNav={setActiveNav} />
                     <NavItem href="#/json" id="json_nav" label="Json" activeNav={activeNav} setActiveNav={setActiveNav} />
                     <NavItem href="#/query" id="query_nav" label="Query" activeNav={activeNav} setActiveNav={setActiveNav} />
@@ -50,6 +52,7 @@ export default function App() {
             </label>
             <Routes>
                 <Route path="/" element={<Home apiEndpoint={apiEndpoint} config={curConfig} />} />
+                <Route path="/testcase" element={<QA/>} />
                 <Route path="/jwt" element={<Jwt apiEndpoint={apiEndpoint} config={curConfig} />} />
                 <Route path="/json" element={<Json />} />
                 <Route path="/query" element={<Query apiEndpoint={apiEndpoint} config={curConfig} />} />
