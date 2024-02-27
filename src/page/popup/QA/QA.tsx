@@ -15,6 +15,7 @@ export default function QA() {
             const out = recTestcase(_tcParam);
             let outStr:string[] = [];
             for(const s of out){
+                s["expect_1"] = ""
                 outStr.push(JSON.stringify(s));
             }
             setTcOutput(`[\n${outStr.join(",\n")}\n]`);
@@ -38,37 +39,25 @@ export default function QA() {
 }
 
 
-function recTestcase(params:Record<string,any>,ix:number=0){
-    let paramNames:string[] = Object.keys(params);//list param name
-    let curParamName:string = paramNames[ix];
-    let paramValues:any[] = params[curParamName];
-    // console.log(paramNames,curParamName,paramValues);
-    
-    if(paramNames.length-1 === ix){
-        let out:Record<string,any>[] = [];
-        for(const val of paramValues){
-            let row:Record<string,any>={};
-            row[curParamName]= val;
-            row["expect"]= "";
-            out.push(row);
+function recTestcase(params: Record<string, any>) {
+    let temp: Record<string, any>[] = [];
+    let out: Record<string, any>[] = [];
+    for (const pName in params) {
+        let next: Record<string, any>[] = [];
+        for (const val of params[pName]) {
+            next.push({ [pName]: val })
         }
-        return out
-    }else {
-        let out:Record<string,any>[] = [];
-        let _out = recTestcase(params,ix+1);
-        for(const val of paramValues){
-            for(const child of _out){
-            let row:Record<string,any>={};
-            row[curParamName]= val;
-            row = {...row, ...child};
-                out.push(row);
+        if (out.length <= 0) { out = next }
+        else {
+            for (let p of out) {
+                for (let n of next) {
+                    temp.push({ ...p, ...n });
+                }
             }
+            out = temp;
+            temp = [];
         }
-        return out;
     }
+    return out;
 }
-
-// let x = {test:[1,2],test2:["g","l","x"],test3:["k","d","y"]}
-// let y = recTestcase(x);
-// console.log(y);
 

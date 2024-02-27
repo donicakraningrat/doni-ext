@@ -7,7 +7,7 @@
     "publish": "rm -r dist && npx tsc -p src/services/tsconfig.json && webpack --progress --config webpack.config.js --mode production && cp -R dist/. ../qa_tools/qa_chrome_ext",
     "dev_ui": "webpack --watch --progress --config webpack.config.js --mode development -d cheap-module-source-map",
     "dev_api": "npx tsc -p src/services/tsconfig.json",
-    "build": "npx tsc -p src/services/tsconfig.json",
+    "build": "npx tsc -p src/services/tsconfig.json && webpack --progress --config webpack.config.js --mode production",
     "start": "node dist/index.js"
   },
   "keywords": [],
