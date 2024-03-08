@@ -7,16 +7,21 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function QA() {
     const [tcParam, setTcParam] = useLocalStorage<string>("TcParam", "{}");
-    const [tcOutput,setTcOutput] = useState("");
+    const [tcOutput, setTcOutput] = useState("");
 
     function h_generateTC() {
         try {
             let _tcParam = JSON.parse(tcParam);
             const out = recTestcase(_tcParam);
-            let outStr:string[] = [];
-            for(const s of out){
-                s["expect_1"] = ""
-                outStr.push(JSON.stringify(s));
+            let outStr: string[] = [];
+            for (const s of out) {
+                let temp = JSON.stringify(s);
+                let ss = {
+                    label: temp.replace(/["{}]/g, "").replace(/,/g, " & "),
+                    ...s,
+                    expect_1: ""
+                }
+                outStr.push(JSON.stringify(ss));
             }
             setTcOutput(`[\n${outStr.join(",\n")}\n]`);
         } catch (error) {

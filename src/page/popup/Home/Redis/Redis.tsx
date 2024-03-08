@@ -42,8 +42,8 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
                 "key": key
             })
                 .then(function (response) {
-                    // (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
-                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
+                    if(response.data.error) (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.error;
+                    else (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
                 })
                 .catch(function (error) {
                     if (error.code === "ERR_NETWORK")
@@ -60,8 +60,8 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
                 "key": key
             })
                 .then(function (response) {
-                    // (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
-                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
+                    if(response.data.error) (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.error;
+                    else (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
                 })
                 .catch(function (error) {
                     if (error.code === "ERR_NETWORK")
@@ -77,8 +77,8 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
                 "key": key
             })
                 .then(function (response) {
-                    // (document.getElementById("redisValueTxt") as HTMLInputElement).value = JSON.stringify(response.data);
-                    (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
+                    if(response.data.error) (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.error;
+                    else (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
                 })
                 .catch(function (error) {
                     if (error.code === "ERR_NETWORK")
