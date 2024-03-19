@@ -153,20 +153,15 @@ export default function Jwt({apiEndpoint,config}:{apiEndpoint:string,config:TCon
             </dialog>
             <fieldset id="groupEncode">
                 <legend>Encoder</legend>
-                <TextBox id="SecretKey_Txt" label="Secret Key :" value={jwtFormData.secretKey} history={secretList} onChange={(e) => setJwtFormData({ ...jwtFormData, ...{ secretKey: e.target.value } })} />
-                <TextBox id="Algoritma_Txt" label="Algoritma :" value={jwtFormData.algorithm} history={jwtAlgor} onChange={e => setJwtFormData({ ...jwtFormData, ...{ algorithm: e.target.value } })} style={{ width: "75px" }} />
-                <br />
-                <TextBox id="Email_Txt" label="Email :" history={emailList} />
-                <button id="btnEmail" onClick={e => h_btnEmail(e)}>Set Email</button>
-                <br />
-                <label htmlFor="expDateDtp">Token exp. date</label>
-                <input id="expDateDtp" type="datetime-local" />
-                <button id="btnExpDate" onClick={e => h_btnExpDate(e)}>Set Exp Date</button>
-                <br />
-
-                <label htmlFor="txtPayload">Payload :
-                    <textarea id="txtPayload" value={JSON.stringify(jwtFormData.payload)} onChange={e => setJwtFormData({ ...jwtFormData, ...{ payload: JSON.parse(e.target.value) } })} />
-                </label>
+                <TextBox id="SecretKey_Txt" label="Secret Key " value={jwtFormData.secretKey} history={secretList} onChange={(e) => setJwtFormData({ ...jwtFormData, ...{ secretKey: e.target.value } })} className="col1"/>
+                <TextBox id="Algoritma_Txt" label="Algoritma " value={jwtFormData.algorithm} history={jwtAlgor} onChange={e => setJwtFormData({ ...jwtFormData, ...{ algorithm: e.target.value } })} style={{ width: "75px" }} className="col2"/>
+                <TextBox id="Email_Txt" label="Email :" history={emailList} className="col1"/>
+                <button id="btnEmail" onClick={e => h_btnEmail(e)} className="col2">Set Email</button>
+                <label htmlFor="expDateDtp" className="col1">Exp. date :</label>
+                <input id="expDateDtp" type="datetime-local" className="col1"/>
+                <button id="btnExpDate" onClick={e => h_btnExpDate(e)} className="col2">Set Exp Date</button>
+                <label htmlFor="txtPayload" className="col1">Payload :</label>
+                <textarea id="txtPayload" value={JSON.stringify(jwtFormData.payload)} onChange={e => setJwtFormData({ ...jwtFormData, ...{ payload: JSON.parse(e.target.value) } })} className="col0" />
                 <button onClick={h_btnEncode_click}>Encode</button>
                 <button onClick={h_btnCookies_click}>Inject to Cookies</button>
             </fieldset>

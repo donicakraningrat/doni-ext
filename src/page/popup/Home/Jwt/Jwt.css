@@ -9,3 +9,28 @@ textarea{
     width: 100%;
     resize: vertical;
 }
+
+#groupEncode {
+    display: grid;
+    /* grid-auto-rows: auto; */
+    /* grid-auto-flow: column; */
+  }
+  
+  #groupEncode label.col1 {
+      grid-column: 1;
+    }
+    #groupEncode input.col1 {
+        grid-column: 2;
+    }
+    #groupEncode label.col2 {
+        grid-column: 3;
+    }
+    #groupEncode input.col2 {
+        grid-column: 4;
+    }
+    #groupEncode button.col2 {
+      grid-column: 3/5;
+    }
+  #groupEncode textarea.col0 {
+    grid-column: 1/5;
+  }
