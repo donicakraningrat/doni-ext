@@ -157,7 +157,7 @@ export default function Jwt({apiEndpoint,config}:{apiEndpoint:string,config:TCon
                 <TextBox id="Algoritma_Txt" label="Algoritma " value={jwtFormData.algorithm} history={jwtAlgor} onChange={e => setJwtFormData({ ...jwtFormData, ...{ algorithm: e.target.value } })} style={{ width: "75px" }} className="col2"/>
                 <TextBox id="Email_Txt" label="Email :" history={emailList} className="col1"/>
                 <button id="btnEmail" onClick={e => h_btnEmail(e)} className="col2">Set Email</button>
-                <label htmlFor="expDateDtp" className="col1">Exp. date :</label>
+                <label htmlFor="expDateDtp" className="col1">Exp. date</label>
                 <input id="expDateDtp" type="datetime-local" className="col1"/>
                 <button id="btnExpDate" onClick={e => h_btnExpDate(e)} className="col2">Set Exp Date</button>
                 <label htmlFor="txtPayload" className="col1">Payload :</label>

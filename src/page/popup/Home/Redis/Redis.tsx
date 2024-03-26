@@ -78,7 +78,7 @@ export default function Redis({apiEndpoint,config}:{apiEndpoint:string,config:TC
             })
                 .then(function (response) {
                     if(response.data.error) (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.error;
-                    else (document.getElementById("redisValueTxt") as HTMLInputElement).value = response.data.value;
+                    else (document.getElementById("redisValueTxt") as HTMLInputElement).value = (response.data.value as string[]).join("\n");
                 })
                 .catch(function (error) {
                     if (error.code === "ERR_NETWORK")

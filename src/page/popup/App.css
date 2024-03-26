@@ -1,0 +1,23 @@
+#EnvirotmentDiv {
+    display: grid;
+    padding: 5px;
+}
+
+#EnvirotmentDiv label.col1 {
+    grid-column: 1;
+}
+
+#EnvirotmentDiv .col1 {
+    padding-left: 5px;
+    grid-column: 2;
+}
+
+#EnvirotmentDiv label.col2 {
+    padding-left: 5px;
+    grid-column: 3;
+}
+
+#EnvirotmentDiv .col2 {
+    padding-left: 5px;
+    grid-column: 4;
+}
